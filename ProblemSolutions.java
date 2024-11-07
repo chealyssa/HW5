@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Che Alyssa Zulaik / COMP272-002
  *
  *   This java file contains the problem solutions of isSubSet, findKthLargest,
  *   and sort2Arrays methods. You should utilize the Java Collection Framework for
@@ -31,10 +31,21 @@ class ProblemSolutions {
      */
 
     public boolean isSubset(int list1[], int list2[]) {
+        // check if all of b is in any parts of a basically
+        HashSet<Integer> elementsA = new HashSet<>();
+        HashSet<Integer> elementsB = new HashSet<>();
 
-        // ADD YOU CODE HERE -- DON'T FORGET TO ADD YOR NAME AT TOP OF FILE
-
-        return false;
+        //add list 1 to elemA
+        for(int num : list1)
+        {
+            elementsA.add(num);
+        }
+        //add list 2 to elemB
+        for(int num : list2)
+        {
+            elementsB.add(num);
+        }
+        return elementsA.containsAll(elementsB);
     }
 
 
@@ -52,10 +63,21 @@ class ProblemSolutions {
      */
 
     public int findKthLargest(int[] array, int k) {
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
 
-        // ADD YOUR CODE HERE
+        //Iterate
+        for(int num : array)
+        {
+            minHeap.add(num);
 
-        return 0;
+            //if size exceeds k
+            if(minHeap.size() > k)
+            {
+                minHeap.poll(); // retrives and removes the head ot the queue
+            }
+        }
+
+        return minHeap.peek();
     }
 
 
@@ -73,10 +95,24 @@ class ProblemSolutions {
      */
 
     public int[] sort2Arrays(int[] array1, int[] array2) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
-        // ADD YOU CODE HERE
+        for(int num : array1)
+        {
+            pq.add(num);
+        }
+        for(int num : array2)
+        {
+            pq.add(num);
+        }
 
-        return null;
+        //sorted
+        int[] result = new int[array1.length + array2.length]; //assume no duplicated numbers?
+        for(int i = 0; i < result.length; i++){
+            result[i] = pq.poll();
+        }
+
+        return result;
     }
 
 }

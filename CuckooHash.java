@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Che Alyssa COMP272-002
  *
  *   Note, additional comments provided throughout this source code
  *   is for educational purposes
@@ -245,12 +245,40 @@ public class CuckooHash<K, V> {
 	 */
 
  	public void put(K key, V value) {
+		 int pos1 = hash1(key);
+		 int pos2 = hash2(key);
+		 int retries = 0;
+		 K displacedKey = key;
+		 V displacedValue = value;
+		 
+		while(retries < CAPACITY){
+			if(table[pos1] == null)
+			{
+				table[pos1] = new Bucket<>(displacedKey,displacedValue);
+				return;
+			}
 
-		// ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME AT TOP OF FILE.
-		// Also make sure you read this method's prologue above, it should help
-		// you. Especially the two HINTS in the prologue.
+			if(table[pos1].getBucKey().equals(displacedKey) && table[pos1].getValue().equals(displacedValue))
+			{
+				return;
+			}
 
-		return;
+			Bucket<K, V> temp = table[pos1];
+			table[pos1] = new Bucket<>(displacedKey, displacedValue);
+			displacedKey = temp.getBucKey();
+			displacedValue = temp.getValue();
+
+			//alternate
+			if(pos1 == hash1(displacedKey)) {
+				pos1 = hash2(displacedKey);
+			} else {
+				pos1 = hash1(displacedKey);
+			}
+
+			retries++;
+		}
+		rehash();
+		put(displacedKey, displacedValue);
 	}
 
 
