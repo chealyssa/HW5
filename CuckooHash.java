@@ -250,7 +250,7 @@ public class CuckooHash<K, V> {
 		 int retries = 0;
 		 K displacedKey = key;
 		 V displacedValue = value;
-		 
+
 		while(retries < CAPACITY){
 			if(table[pos1] == null)
 			{
